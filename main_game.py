@@ -1,4 +1,5 @@
-import random as rand
+import random
+# Classes
 class Player():
     def __init__(self):
         self.hand = []
@@ -43,6 +44,8 @@ class ComputerPlayer(Player):
             else:
                 chosen = double_hand[0]
                 self.hand = [x for x in playable_hand if x != chosen]
+
+# General Functions
 def mock_is_valid_play(card, current_highest):
     """
     This mock just returns True if card > current_highest.
@@ -66,6 +69,8 @@ def choose_playable_card(hand, current_highest_card):
         if mock_is_valid_play(card, current_highest_card):
             return card
     return None
+
+# Main Functions
 class Main():
     """
     Card deck 
@@ -80,7 +85,7 @@ class Main():
     for card in card_values:
         for __ in range(4): 
             deck.append(card)
-    rand.shuffle(deck)
+    random.shuffle(deck)
     # Main Game Loop
     player = Player()
     computer_player = ComputerPlayer()
@@ -88,20 +93,8 @@ class Main():
     for __ in range(7):
         player.hand.append(deck.pop())
         computer_player.hand.append(deck.pop())
-    print(player.hand)
-    print(computer_player.hand)
+    
     
     print("---- Welcome User Message ----")
     
-    
-    
-    
-    
-    
-    
-
-
-
-
-#
 

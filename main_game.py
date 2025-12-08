@@ -69,6 +69,24 @@ def choose_playable_card(hand, current_highest_card):
         if mock_is_valid_play(card, current_highest_card):
             return card
     return None
+def get_card_value(card):
+    """Returns value of card.
+
+    Args:
+        card (str): String representation of the card(i.e 'A', '2', 'K')
+    Side Effects: 
+        None
+    Raises: 
+        None
+
+    Returns:
+        int: Number value of the card(i.e 2)
+    """
+    card_values = {0:"0","A": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7":  7,\
+        "8": 8, "9": 9,"K":13, "J": 12, "Q": 11}
+    return card_values[card]
+def play_round(player, computer_player,): # David you could work here if this is easiest for you
+    last_card = None
 
 # Main Functions
 class Main():
@@ -78,23 +96,23 @@ class Main():
     dictionary for Kings(K), Aces(A), Jack(J), Q(Queen)
     """
     pass
-    # Create Deck
-    card_values = {"A": 1, "2":2, "3":3, "4": 4, "5":5, "6":6, "7":7, "8":8, "9":9,\
-        "K":13, "J": 12, "Q": 11}
+    # Create Deck"
+    cards = ["1","2","3","4","5","6","7","8","9","10","J","Q","K"]
     deck = []
-    for card in card_values:
+    for card in cards:
         for __ in range(4): 
             deck.append(card)
     random.shuffle(deck)
     # Main Game Loop
     player = Player()
     computer_player = ComputerPlayer()
-    last_card = None
-    for __ in range(7):
+    for __ in range(8):
         player.hand.append(deck.pop())
         computer_player.hand.append(deck.pop())
     
     
     print("---- Welcome User Message ----")
+    print(player.hand)
+    
     
 

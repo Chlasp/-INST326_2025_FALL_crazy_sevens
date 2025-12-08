@@ -74,19 +74,28 @@ def get_card_value(card):
 
     Args:
         card (str): String representation of the card(i.e 'A', '2', 'K')
-    Side Effects: 
-        None
-    Raises: 
-        None
-
     Returns:
         int: Number value of the card(i.e 2)
     """
-    card_values = {0:"0","A": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7":  7,\
+    card_values = {"A": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7":  7,\
         "8": 8, "9": 9,"K":13, "J": 12, "Q": 11}
     return card_values[card]
-def play_round(player, computer_player,): # David you could work here if this is easiest for you
-    last_card = None
+def play_round(player, computer_player, turn): # David you could work here if this is easiest for you
+    """_summary_
+
+    Args:
+        player (Player): Player object of current player.
+        computer_player (Computer): Computer object of computer player.
+        turn (str): Name of the user who is starting their turn
+    """
+    current_highest = None
+    if turn == "player":
+        pass
+    else:
+        pass
+    
+    
+    
 
 # Main Functions
 class Main():
@@ -110,9 +119,16 @@ class Main():
         player.hand.append(deck.pop())
         computer_player.hand.append(deck.pop())
     
-    
+    turn = random.choice("player","computerplayer")
     print("---- Welcome User Message ----")
     print(player.hand)
+    play_round(player,computer,turn)
+    if len(player.hand) == 0:
+        print("player has won")
+    if len(computer_player.hand) == 0:
+        print("Computer has won")
+        
+    
     
     
 

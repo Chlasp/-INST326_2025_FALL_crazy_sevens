@@ -79,10 +79,10 @@ class ComputerPlayer(Player):
                 chosen = double_hand[0]
                 self.hand = [x for x in playable_hand if x != chosen]
 
-# General Functions
+# Game loop functions
 def is_valid_play(card, current_highest):
     """
-    This mock just returns True if card > current_highest.
+    This just returns True if card > current_highest.
     """
     if current_highest is None:
         return True

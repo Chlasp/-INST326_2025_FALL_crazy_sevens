@@ -1,4 +1,38 @@
 import random
+# Game loop
+def play_game(self):
+    round = 1
+    game_over = False
+    
+    while not game_over:
+        print(f"\n--- Round {round} ---")
+        print(f"Current highest card: {self.last_card}")
+        print(f"Your hand:{self.player.hand}")
+        
+        playable_card = choose_playable_card(self.player.hand, self.last_card)
+        if playable_card is None:
+            print("You have no playable cards. Computer cooked you!")
+            game_over = True
+            break
+        
+        print(f"You play: {playable_card}")
+        self.player.hand.remove(playable_card)
+        self.last_card = playable_card
+        
+        if not self.player.hand:
+            print("Congratulations! You won!")
+            game_over = True 
+            break
+        
+        print("Computer's turn...")
+        self.computer_player.turn(self.last_card, round)
+        
+        if not self.computer_player.hand:
+            print("Computer wins!")
+            game_over = True
+            break
+        
+        round += 1
 # Classes
 class Player():
     def __init__(self):

@@ -140,27 +140,25 @@ class Main():
     """
     pass
     # Create Deck"
-    cards = ["1","2","3","4","5","6","7","8","9","10","J","Q","K"]
-    deck = []
-    for card in cards:
-        for __ in range(4): 
-            deck.append(card)
-    random.shuffle(deck)
+    def __init__(self):
+        self.card_values = {"A": 1, "2":2, "3":3, "4": 4, "5":5, "6":6, "7":7, "8":8, "9":9,
+        "K":13, "J": 12, "Q": 11}
+        self.deck = []
+        for card in self.card_values:
+            for __ in range(4): 
+                self.deck.append(card)
+        random.shuffle(self.deck)
     # Main Game Loop
-    player = Player()
-    computer_player = ComputerPlayer()
-    for __ in range(8):
-        player.hand.append(deck.pop())
-        computer_player.hand.append(deck.pop())
+        self.player = Player()
+        self.computer_player = ComputerPlayer()
+        self.last_card = None
+        for __ in range(7):
+           self. player.hand.append(self.deck.pop())
+           self. computer_player.hand.append(self.deck.pop())
     
-    turn = random.choice("player","computerplayer")
-    print("---- Welcome User Message ----")
-    print(player.hand)
-    play_round(player,computer,turn)
-    if len(player.hand) == 0:
-        print("player has won")
-    if len(computer_player.hand) == 0:
-        print("Computer has won")
+if __name__ == "__main__":
+    game = Main()
+    game.play_game()
         
     
     

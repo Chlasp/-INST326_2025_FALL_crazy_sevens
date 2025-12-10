@@ -21,8 +21,43 @@ class Main():
         self.computer_player = ComputerPlayer(self.card_values)
         self.last_card = None
         for __ in range(7):
-           self. player.hand.append(self.deck.pop())
-           self. computer_player.hand.append(self.deck.pop())
+           self.player.hand.append(self.deck.pop())
+           self.computer_player.hand.append(self.deck.pop())
+           
+    def player_turn(self):
+        print(f"\nYour hand: {self.player.hand}")
+        print(f"Current highest card: {self.last_card}")
+        
+         # determine valid cards
+        if self.last_card:
+            last_value = self.card_values[self.last_card]
+            valid_cards = [c for c in self.player.hand if self.card_values[c] > last_value]
+        else:
+            valid_cards = self.player.hand.copy()
+
+        if not valid_cards:
+            print("You have no playable cards. Computer cooked you!")
+            return None
+
+        print(f"Playable cards: {valid_cards}")
+
+        # ask user for card
+        while True:
+            choice = input("Choose a card to play: ").strip().upper()
+
+            if choice not in self.player.hand:
+                print("You don't have that card. Try again.")
+                continue
+
+            if choice not in valid_cards:
+                print("That card cannot be played. Choose a valid card.")
+                continue
+
+            self.player.hand.remove(choice)
+            print(f"You play: {choice}")
+            return choice
+        
+                 
 # Game loop
     def play_game(self):
         round = 1
@@ -30,38 +65,29 @@ class Main():
         
         while not game_over:
             print(f"\n--- Round {round} ---")
-            print(f"Current highest card: {self.last_card}")
-            print(f"Your hand:{self.player.hand}")
-            
-            player_hand_values = [self.card_values[card] for card in self.player.hand]
-            last_card_value = self.card_values[self.last_card] if self.last_card else None
-            
-            playable_card_value = choose_playable_card(player_hand_values, last_card_value)
-            playable_card = None
-            
-            if playable_card_value is not None:
-            # Find the actual card to play
-                playable_card = next(card for card in self.player.hand 
-                                    if self.card_values[card] == playable_card_value)
-                
-            if playable_card is None:
-                print("You have no playable cards. Computer cooked you!")
+    
+            # Player turn
+            player_card = self.player_turn()
+            if player_card is None:
                 game_over = True
                 break
             
-            playable_card = next(card for card in self.player.hand 
-                           if self.card_values[card] == playable_card_value)
-            print(f"You play: {playable_card}")
-            self.player.hand.remove(playable_card)
-            self.last_card = playable_card
+            self.last_card = player_card
             
             if not self.player.hand:
                 print("Congratulations! You won!")
                 game_over = True 
                 break
             
-            print("Computer's turn...")
-            self.computer_player.turn(self.last_card, round)
+            print("\nComputer's turn...")
+            computer_card = self.computer_player.turn(self.last_card, round)
+            
+            if computer_card is None:
+                print("Computer cannot play and loses!")
+                break
+
+            print(f"Computer plays: {computer_card}")
+            self.last_card = computer_card
             
             if not self.computer_player.hand:
                 print("Computer wins!")
@@ -136,18 +162,12 @@ class ComputerPlayer(Player):
             count[card] = count.get(card, 0) + 1
         double_hand = [card for card in playable_hand if count[card] > 1]
         if round == 3:
-           # if double_hand:
             chosen = double_hand[0] if double_hand else playable_hand[0]
-               # self.hand = [x for x in playable_hand if x != chosen]
-           # chosen = playable_hand[0]
-           # self.hand = [x for x in playable_hand if x != chosen]
         else:
             if (playable_hand[0] - last_card_value) < 3:
                 chosen = playable_hand[0]
-              #  self.hand = [x for x in playable_hand if x != chosen]
             else:
                 chosen = double_hand[0] if double_hand else playable_hand[0]
-               # self.hand = [x for x in playable_hand if x != chosen]
               
         for card in self.hand:
             if self.card_values[card] == chosen:

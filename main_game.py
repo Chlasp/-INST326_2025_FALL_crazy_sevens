@@ -126,7 +126,7 @@ class ComputerPlayer(Player):
         hand_values = [self.card_values[card] for card in self.hand]
     
     # Creates playable card options
-        playable_hand = [card for card in sorted(hand_values) \
+        playable_hand = [card for card in hand_values \
             if card > last_card_value]
         if not playable_hand:
             return None
@@ -136,24 +136,23 @@ class ComputerPlayer(Player):
             count[card] = count.get(card, 0) + 1
         double_hand = [card for card in playable_hand if count[card] > 1]
         if round == 3:
-            if double_hand:
-                chosen = double_hand[0]
-                self.hand = [x for x in playable_hand if x != chosen]
-            chosen = playable_hand[0]
-            self.hand = [x for x in playable_hand if x != chosen]
+           # if double_hand:
+            chosen = double_hand[0] if double_hand else playable_hand[0]
+               # self.hand = [x for x in playable_hand if x != chosen]
+           # chosen = playable_hand[0]
+           # self.hand = [x for x in playable_hand if x != chosen]
         else:
             if (playable_hand[0] - last_card_value) < 3:
                 chosen = playable_hand[0]
-                self.hand = [x for x in playable_hand if x != chosen]
+              #  self.hand = [x for x in playable_hand if x != chosen]
             else:
-                chosen = double_hand[0]
-                self.hand = [x for x in playable_hand if x != chosen]
-                
-        for card_str in self.hand:
-            if self.card_values[card_str] == chosen:
-                chosen_card = card_str
-                break
-        self.hand.remove(chosen_card)
+                chosen = double_hand[0] if double_hand else playable_hand[0]
+               # self.hand = [x for x in playable_hand if x != chosen]
+              
+        for card in self.hand:
+            if self.card_values[card] == chosen:
+                self.hand.remove(card)
+                return card
 
 def get_card_value(card):
     """Returns value of card.

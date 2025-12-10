@@ -20,7 +20,7 @@ class Main():
         self.player = Player()
         self.computer_player = ComputerPlayer(self.card_values)
         self.last_card = None
-        for __ in range(7):
+        for __ in range(8):
            self.player.hand.append(self.deck.pop())
            self.computer_player.hand.append(self.deck.pop())
            

@@ -33,10 +33,10 @@ class Main():
             print(f"Current highest card: {self.last_card}")
             print(f"Your hand:{self.player.hand}")
             
-            player_hand = [self.card_values[card] for card in self.player.hand]
+            player_hand_values = [self.card_values[card] for card in self.player.hand]
             last_card_value = self.card_values[self.last_card] if self.last_card else None
             
-            playable_card_value = choose_playable_card(player_hand, last_card_value)
+            playable_card_value = choose_playable_card(player_hand_values, last_card_value)
             playable_card = None
             
             if playable_card_value is not None:
@@ -122,13 +122,12 @@ class ComputerPlayer(Player):
             None
         """
     # Initalizes computer player hand
-        hand = self.hand
-        if last_card == None:
-            last_card = 0
+        last_card_value = self.card_values[last_card] if last_card else 0
+        hand_values = [self.card_values[card] for card in self.hand]
     
     # Creates playable card options
-        playable_hand = [card for card in sorted(hand) \
-            if card > last_card]
+        playable_hand = [card for card in sorted(hand_values) \
+            if card > last_card_value]
         if not playable_hand:
             return None
     # Checks for double hand
@@ -143,12 +142,18 @@ class ComputerPlayer(Player):
             chosen = playable_hand[0]
             self.hand = [x for x in playable_hand if x != chosen]
         else:
-            if (playable_hand[0] - last_card) < 3:
+            if (playable_hand[0] - last_card_value) < 3:
                 chosen = playable_hand[0]
                 self.hand = [x for x in playable_hand if x != chosen]
             else:
                 chosen = double_hand[0]
                 self.hand = [x for x in playable_hand if x != chosen]
+                
+        for card_str in self.hand:
+            if self.card_values[card_str] == chosen:
+                chosen_card = card_str
+                break
+        self.hand.remove(chosen_card)
 
 def get_card_value(card):
     """Returns value of card.

@@ -1,4 +1,5 @@
 import random
+from multicard import validate_multi_card_play
 
 class Main():
     """
@@ -53,6 +54,10 @@ class Main():
                 print("That card cannot be played. Choose a valid card.")
                 continue
 
+            if not validate_multi_card_play([choice], self.last_card, self.player.hand, self.card_values):
+                print("Not a valid play under multi card rules.")
+            continue
+        
             self.player.hand.remove(choice)
             print(f"You play: {choice}")
             return choice

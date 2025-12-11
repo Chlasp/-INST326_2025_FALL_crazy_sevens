@@ -153,7 +153,7 @@ class ComputerPlayer(Player):
     
     # Creates playable card options
         playable_hand = [card for card in hand_values \
-            if card > last_card_value]
+            if card > last_card_value and card - last_card_value  < 5]
         if not playable_hand:
             return None
     # Checks for double hand

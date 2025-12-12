@@ -26,7 +26,7 @@ class Main():
            self.computer_player.hand.append(self.deck.pop())
            
    
-           
+        
     def player_turn(self):
         print(f"\nYour hand: {self.player.hand}")
         print(f"Current highest card: {self.last_card}")
@@ -217,17 +217,7 @@ class ComputerPlayer(Player):
                 self.hand.remove(card)
                 return card
 
-def get_card_value(card):
-    """Returns value of card.
 
-    Args:
-        card (str): String representation of the card(i.e 'A', '2', 'K')
-    Returns:
-        int: Number value of the card(i.e 2)
-    """
-    card_values = {"A": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7":  7,\
-        "8": 8, "9": 9,"K":13, "J": 12, "Q": 11}
-    return card_values[card]
 
 
     

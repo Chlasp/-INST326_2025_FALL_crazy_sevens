@@ -41,26 +41,28 @@ class Main():
             return None
 
         print(f"Playable cards: {valid_cards}")
+        print("You may play 1 card or multiple *matching* cards (e.g., '8 8', 'K K').")
 
         # ask user for card
         while True:
             choice = input("Choose a card to play: ").strip().upper()
-
-            if choice not in self.player.hand:
-                print("You don't have that card. Try again.")
+            
+            selected = choice.split()
+            
+            card_check = [c for c in selected if not c in self.player.hand]
+            if card_check:
+                print(f"You do not have these cards: {card_check}. Try again.")
                 continue
 
-            if choice not in valid_cards:
-                print("That card cannot be played. Choose a valid card.")
-                continue
-
-            if not validate_multi_card_play([choice], self.last_card, self.player.hand, self.card_values):
+            if not validate_multi_card_play(selected, self.last_card, self.player.hand, self.card_values):
                 print("Not a valid play under multi card rules.")
-            continue
-        
-            self.player.hand.remove(choice)
-            print(f"You play: {choice}")
-            return choice
+                continue
+            
+            for c in selected:
+                self.player.hand.remove(c)
+            
+            print(f"You play: {selected}")
+            return selected[0]
         
                  
 # Game loop

@@ -12,10 +12,8 @@ def swap_hands(hands, current_player, played_cards, chosen_player):
         None 
     """
     # Count how many 7s were played
-    sevens_played = 0
-    for card in played_cards:
-        if card == 7:
-            sevens_played += 1
+    sevens_played = sum(1 for c in played_cards if c == "7")
+
     
     if sevens_played >= 2:
         # Swap hands instantly

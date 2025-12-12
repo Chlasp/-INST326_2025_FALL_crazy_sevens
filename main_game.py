@@ -25,6 +25,8 @@ class Main():
            self.player.hand.append(self.deck.pop())
            self.computer_player.hand.append(self.deck.pop())
            
+   
+           
     def player_turn(self):
         print(f"\nYour hand: {self.player.hand}")
         print(f"Current highest card: {self.last_card}")
@@ -61,8 +63,15 @@ class Main():
             for c in selected:
                 self.player.hand.remove(c)
             
+            hands = [self.player.hand, self.computer_player.hand]
+            
+            swap_hands(hands, 0, selected, 1)
+            self.player.hand = hands[0]
+            self.computer_player.hand = hands[1]
+            
             print(f"You play: {selected}")
             return selected[0]
+        
         
                  
 # Game loop
@@ -131,6 +140,33 @@ def choose_playable_card(hand, current_highest_card):
         if is_valid_play(card, current_highest_card):
             return card
     return None
+
+def swap_hands(hands, current_player, played_cards, chosen_player):
+    """
+    Swap hands if current player plays 2 or more 7's
+    
+    Args:
+        hands (list ): list of player hands, each hand is a list of cards
+        current_player (int): index of the player who played
+        played_cards (list): list of cards the player played this turn
+        chosen_player (int): index of the player to swap hands with
+    
+    Returns:
+        None 
+    """
+    # Count how many 7s were played
+    sevens_played = sum(1 for c in played_cards if c == "7")
+
+    
+    if sevens_played >= 2:
+        # Swap hands instantly
+        hands[current_player], hands[chosen_player] = (
+            hands[chosen_player], 
+            hands[current_player]
+        )
+        print(f"Player {current_player} swapped hands with Player {chosen_player}!")  
+        return hands[current_player]       
+        
 # Classes
 class Player():
     def __init__(self):

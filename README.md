@@ -64,9 +64,11 @@ python main_game.py
 | Method / Function | Primary Author | Techniques Demonstrated |
 |------------------|----------------|--------------------------|
 | `validate_multi_card_play` | Danica | set operations (set difference) |
-| `find_valid_multi_card_plays` | Danica | comprehensions; optional parameters |
+| `find_valid_multi_card_plays` | Danica | comprehensions |
 | `play_game` | David | f-strings containing expressions |
-| `__init__` | David | comprehensions / generator expressions |
+| `__init__` | David | super() |
+| `swap_hands` | Miguel | Sequence Unpacking |
+|`Session` | Miguel |optional parameters |
 
 
 ---

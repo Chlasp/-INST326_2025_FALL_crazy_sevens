@@ -118,16 +118,7 @@ class Main():
     def store_data_table(player):
         win_percentage = round/player.wins
         player.table.append((round, winner, win_percentage))
-    
-    
-    
-            
-            
-            
-            
-        
-        
-                 
+                  
 # Game loop
     def play_game(self):
         """
@@ -206,6 +197,29 @@ class Main():
             
             round += 1
         return winner
+    
+    def session(self, max_games=None):
+        game_count = 0
+        results = {"Player": 0, "Computer": 0}
+        
+        while True:
+            self.__init__()
+            winner = self.play_game()
+            if winner:
+                results[winner] += 1
+                
+            game_count += 1
+            if max_games and game_count >= max_games:
+                break
+            
+            choice = input("Play another game? (y/n): ").strip().lower()
+            if choice != "y":
+                break
+            
+        print("\n=== Session Summary ===")
+        print(f"Total games played: {game_count}")
+        print(f"Player wins: {results['Player']}")
+        print(f"Computer wins: {results['Computer']}")
         
 # Game loop functions
 def is_valid_play(card, current_highest):
@@ -327,12 +341,6 @@ class ComputerPlayer(Player):
                 self.hand.remove(card)
                 return card
 
-
-
-
-    
 if __name__ == "__main__":
     game = Main()
-    winner = game.play_game()
-    if winner:
-        print(f"Winner: {winner}")
+    game.session()

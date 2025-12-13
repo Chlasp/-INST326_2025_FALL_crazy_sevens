@@ -1,4 +1,5 @@
 import random
+import time
 from multicard import validate_multi_card_play
 
 class Main():
@@ -96,6 +97,9 @@ class Main():
                 break
             
             print("\nComputer's turn...")
+            print("\nComputer is thinking...", end="", flush=True)
+            print("\n")
+            time.sleep(1)
             computer_card = self.computer_player.turn(self.last_card, round)
             
             if computer_card is None:

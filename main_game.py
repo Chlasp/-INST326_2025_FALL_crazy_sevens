@@ -120,14 +120,6 @@ class Main():
         winner = self.play_game()
         self.table.append((round, winner, win_percentage))
     
-    
-    
-            
-            
-            
-            
-        
-        
                  
 # Game loop
     def play_game(self):
@@ -228,8 +220,8 @@ class Main():
             
         print("\n=== Session Summary ===")
         print(f"Total games played: {game_count}")
-        print(f"Player wins: {results['Player']}")
-        print(f"Computer wins: {results['Computer']}")
+        print(f"Player wins: {self.results['Player']}")
+        print(f"Computer wins: {self.results['Computer']}")
         
 # Game loop functions
 def is_valid_play(card, current_highest):

@@ -11,6 +11,17 @@ class Main():
     pass
     # Create Deck"
     def __init__(self):
+        """
+        Primary Author: David
+        Technique Claimed: comprehensions / generator expressions
+        
+        Initializes the card deck, shuffles it, creates player objects, 
+        and deals starting hands to both Player and Computer Player.
+        
+        Side effects:
+            Modifies self.deck
+            Intializes self.player and self.computer_player hands
+        """
         self.card_values = {"A": 1, "2":2, "3":3, "4": 4, "5":5, "6":6, "7":7, "8":8, "9":9,
         "K":13, "J": 12, "Q": 11}
         self.deck = []
@@ -29,6 +40,21 @@ class Main():
    
         
     def player_turn(self):
+        """
+        Primary Author: David
+        Technique Claimed: Input Validation
+        
+        Handles a single turn for Player.
+        Displays Player's hand, determines playable cards,
+        validates input for single or multi-card plays,
+        and allows Player to quit the game.
+        
+        Returns:
+            str or None:
+                Card played
+                "QUIT" if the player wants to exit game
+                None if no valid move exists
+        """
         print(f"\nYour hand: {self.player.hand}")
         print(f"Current highest card: {self.last_card}")
         
@@ -80,6 +106,20 @@ class Main():
                  
 # Game loop
     def play_game(self):
+        """
+        Primary Author: David
+        Technique Claimed: f-strings containing expressions
+        
+        Runs the main game loop, alternating turns between human and computer.
+        Uses f-strings to clearly display round information, player hand,
+        and current highest card.
+        Allows quitting and win/loss detection.
+        
+        
+        Side effects:
+            Prints game progress to console
+            Updates game state variables like self.last_card
+        """
         round = 1
         game_over = False
         
@@ -128,6 +168,8 @@ class Main():
 # Game loop functions
 def is_valid_play(card, current_highest):
     """
+    Primary Author: David 
+    
     This just returns True if card > current_highest.
     
     Args:
@@ -140,6 +182,8 @@ def is_valid_play(card, current_highest):
 
 def choose_playable_card(hand, current_highest_card):
     """
+    Primary Author: David 
+    
     Determines which card a player should play next.
     Parameters:
         hand (list of ints): the player's current cards
@@ -156,6 +200,8 @@ def choose_playable_card(hand, current_highest_card):
 
 def swap_hands(hands, current_player, played_cards, chosen_player):
     """
+    Primary Author: Miguel
+    
     Swap hands if current player plays 2 or more 7's
     
     Args:

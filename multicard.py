@@ -11,7 +11,8 @@ that exists in the main game file.
 from collections import Counter
 
 
-def validate_multi_card_play(selected_labels, current_top_label, player_hand_labels, card_values):
+def validate_multi_card_play(selected_labels, current_top_label,
+                             player_hand_labels, card_values):
     """
     Determines whether a player can legally play multiple cards in a single turn.
 
@@ -41,29 +42,42 @@ def validate_multi_card_play(selected_labels, current_top_label, player_hand_lab
     if not isinstance(selected_labels, list) or len(selected_labels) == 0:
         return False
 
-    selected = [str(card).strip().upper() for card in selected_labels if str(card).strip() != ""]
+    selected = [str(card).strip().upper() for card in selected_labels
+                if str(card).strip() != ""]
     if not selected:
         return False
 
+    # every selected card must be a known label
     for card in selected:
         if card not in card_values:
             return False
 
-    hand_counter = Counter([str(card).strip().upper() for card in player_hand_labels])
+    hand_counter = Counter(str(card).strip().upper() for card in player_hand_labels)
     selected_counter = Counter(selected)
 
+    # --- rubric technique: set operations (set difference) ---
+    # labels that were selected but never appear in the hand at all
+    missing_labels = set(selected_counter.keys()) - set(hand_counter.keys())
+    if missing_labels:
+        return False
+    # --------------------------------------------------------
+
+    # make sure the player actually has enough copies of each card
     for label, count in selected_counter.items():
         if hand_counter[label] < count:
             return False
 
+    # all selected cards must match each other (e.g., "7 7" or "Q Q Q")
     first_label = selected[0]
     for card in selected:
         if card != first_label:
             return False
 
+    # basic rule check for whether this rank is allowed
     if not mock_check_card_rules(first_label, current_top_label, card_values):
         return False
 
+    # multi-card play must still beat the current top card (if there is one)
     if current_top_label is not None:
         top_label = str(current_top_label).strip().upper()
         if top_label not in card_values:
@@ -96,6 +110,48 @@ def mock_check_card_rules(card_label, current_top_label, card_values):
             True if the card is allowed
     """
     return card_label in card_values
+
+
+def find_valid_multi_card_plays(player_hand_labels, current_top_label,
+                                card_values, min_count=2):
+    """
+    Finds multi-card play options in a player's hand.
+
+    Parameters
+        player_hand_labels list of str
+            The cards currently in the player's hand
+
+        current_top_label str or None
+            The current highest card on the pile
+
+        card_values dict
+            Dictionary that maps card labels to numeric values
+
+        min_count int, optional
+            Minimum number of matching cards required for a multi-card play
+
+    Returns
+        dict
+            Maps card label to count for labels that appear at least min_count
+            times in the hand and beat the current_top_label (if one exists)
+    """
+    cleaned_hand = [str(card).strip().upper() for card in player_hand_labels]
+    counts = Counter(cleaned_hand)
+
+    if current_top_label is not None:
+        top_label = str(current_top_label).strip().upper()
+        top_value = card_values.get(top_label, -1)
+    else:
+        top_value = -1
+
+    # rubric techniques: comprehension + optional parameter
+    options = {
+        label: count
+        for label, count in counts.items()
+        if count >= min_count and card_values.get(label, -1) > top_value
+    }
+
+    return options
 
 
 def mock_run_tests():

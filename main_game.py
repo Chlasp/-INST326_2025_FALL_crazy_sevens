@@ -1,6 +1,6 @@
 import random
 import time
-from multicard import validate_multi_card_play
+from multicard import validate_multi_card_play, find_valid_multi_card_plays
 
 class Main():
     """
@@ -68,6 +68,17 @@ class Main():
         if not valid_cards:
             print("You have no playable cards. Computer cooked you!")
             return None
+            
+            # NEW: use Danica's helper to show multi-card options
+        multi_options = find_valid_multi_card_plays(
+            self.player.hand,
+            self.last_card,
+            self.card_values,
+            min_count=2      # keyword argument for the optional parameter
+        )
+        if multi_options:
+            print("Multi-card options (card: count):")
+            print(multi_options)
 
         print(f"Playable cards: {valid_cards}")
         print("You may play 1 card or multiple *matching* cards (e.g., '8 8', 'K K').")

@@ -5,12 +5,31 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 class Main():
-    """
-    Card deck 
-    Args: 
+    """   
+    Main class for the card game.
 
+    This class sets up the deck, initializes player and computer hands, 
+    manages the game loop, player turns, computer turns, and session handling. 
+    It also keeps track of scores, winners, and session summaries.
+
+    Attributes:
+        card_values (dict): Maps card labels to their numeric values (e.g., "A": 1, "K": 13)
+        deck (list): List of all cards in the current deck
+        player (Player): The human player object
+        computer_player (ComputerPlayer): The computer player object
+        last_card (str or None): The value of the last card played in the current round
+        results (dict): Tracks number of wins per player during a session
+        game_count (int): Number of games played in the current session
+        table (list): Stores session data for summary or export
+
+    Methods:
+        player_turn(): Handles a human player's turn.
+        play_game(): Runs a single game until a winner is determined.
+        session(max_games=None): Runs multiple games in a row, collecting results.
+        swap_hands(): Swaps hands when specific card rules are triggered.
+        store_data_table(): Records session data into a table.
+        create_table(): Prints the session results as a pandas DataFrame.
     """
-    pass
     # Create Deck"
     def __init__(self):
         """
@@ -224,7 +243,7 @@ class Main():
         or the optional `max_games` limit is reached, and prints a session summary.
         After the session, it calls `store_data_table()` to save the results.
 
-        Primary Author: Miguel
+        Primary Author: Brian Gardner
         Techniques Claimed: optional parameters
 
         Args:

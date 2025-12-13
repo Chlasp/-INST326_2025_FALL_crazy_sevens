@@ -68,10 +68,9 @@ python main_game.py
 | `play_game` | David | f-strings containing expressions |
 | `__init__` | David | super() |
 | `swap_hands` | Miguel | Sequence Unpacking |
-|`Session` | Miguel |optional parameters |
-|`plot_session_summary` | Miguel | plot graph |
+|`Session` | Brian |optional parameters |
+|`plot_session_summary` | Miguel | visualizing data with pyplot |
 |`store_data_table` | Brian |concatenating operations on Pandas DataFrames |
-|`create_table` | Brian | visualizing data with pyplot |
 
 
 ---

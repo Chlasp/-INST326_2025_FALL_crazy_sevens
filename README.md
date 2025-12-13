@@ -15,7 +15,7 @@ This repository contains a Python-based card game where a human player competes 
 
 ## How to Run the Program
 
-1. Ensure Python 3.8+ is installed.  
+1. Ensure Python 3.13+ is installed.  
 2. Open a terminal or command prompt in the directory containing `main_game.py` and `multicard.py`.  
 3. Run the program:
 

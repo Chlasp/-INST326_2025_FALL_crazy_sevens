@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 class Main():
     """
     Card deck 
-    Use Format Card Name : Value (Ex: "(A): 1)
-    dictionary for Kings(K), Aces(A), Jack(J), Q(Queen)
+    Args: 
+
     """
     pass
     # Create Deck"
@@ -352,14 +352,26 @@ def plot_session_summary(results, total_games):
         
 # Classes
 class Player():
+    """Creates a class for the player
+    Args:
+        hand(list) : player's current hand of cards
+        table(list) : player's current table of cards
+        wins(int) : number of wins for the player
+    """
     def __init__(self):
         self.hand = []
         self.table = []
-        self.name = "user"
         self.wins = 0
     
     
-class ComputerPlayer(Player):  
+class ComputerPlayer(Player):
+    """ Create class for the Computer Player
+    
+    Args:
+        hand(list) : player's current hand of cards
+        table(list) : player's current table of cards
+        wins(int) : number of wins for the player
+    """  
     def __init__(self, card_values):
         super().__init__()
         self.name = "computer"

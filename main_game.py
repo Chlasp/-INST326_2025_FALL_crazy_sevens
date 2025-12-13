@@ -36,8 +36,8 @@ class Main():
         self.last_card = None
         for __ in range(8):
            self.player.hand.append(self.deck.pop())
-           self.computer_player.hand.append(self.deck.pop())
-        self.game_log = pd.DataFrame()
+           self.computer_player.hand.append(self.deck.pop())       
+        self.table = []
            
    
         
@@ -112,12 +112,23 @@ class Main():
             self.computer_player.hand = hands[1]
             
             print(f"You play: {selected}")
-            
             return selected[0]
-    def store_data_table(player):
+    def store_data_table(self,player):
         win_percentage = round/player.wins
         player.table.append((round, winner, win_percentage))
                   
+        winner = self.play_game()
+        self.table.append((round, winner, win_percentage))
+    
+    
+    
+            
+            
+            
+            
+        
+        
+                 
 # Game loop
     def play_game(self):
         """
@@ -199,13 +210,13 @@ class Main():
     
     def session(self, max_games=None):
         game_count = 0
-        results = {"Player": 0, "Computer": 0}
+        self.results = {"Player": 0, "Computer": 0}
         
         while True:
             self.__init__()
             winner = self.play_game()
             if winner:
-                results[winner] += 1
+                self.results[winner] += 1
                 
             game_count += 1
             if max_games and game_count >= max_games:

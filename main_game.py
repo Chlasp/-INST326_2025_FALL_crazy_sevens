@@ -45,6 +45,7 @@ class Main():
     def player_turn(self):
         """
         Primary Author: David
+        Technique Claimed: Input Validation
         
         Handles a single turn for Player.
         Displays Player's hand, determines playable cards,
@@ -114,13 +115,29 @@ class Main():
             
             print(f"You play: {selected}")
             return selected[0]
-    def store_data_table(self,player):
-        win_percentage = round/player.wins
-        player.table.append((round, winner, win_percentage))
-                  
-        winner = self.play_game()
-        self.table.append((round, winner, win_percentage))
+    def store_data_table(self):
+        """Creates a Data Frame
+
+        Args:
+            round (_type_): _description_
+            player (_type_): _description_
+            winner (_type_): _description_
+        """
+        
+        
+        self.table.append((self.results["Player"], self.results["Computer"], self.game_count))
+    def create_table(self):
+        
+        print(f"Final Results: {pd.DataFrame(self.table, columns = ["Player Results", "Computer player", "Game Count"])}")
     
+    
+    
+            
+            
+            
+            
+        
+        
                  
 # Game loop
     def play_game(self):
@@ -202,7 +219,7 @@ class Main():
         return winner
     
     def session(self, max_games=None):
-        game_count = 0
+        self.game_count = 0
         self.results = {"Player": 0, "Computer": 0}
         
         while True:
@@ -211,8 +228,8 @@ class Main():
             if winner:
                 self.results[winner] += 1
                 
-            game_count += 1
-            if max_games and game_count >= max_games:
+            self.game_count += 1
+            if max_games and self.game_count >= max_games:
                 break
             
             choice = input("Play another game? (y/n): ").strip().lower()
@@ -220,9 +237,10 @@ class Main():
                 break
             
         print("\n=== Session Summary ===")
-        print(f"Total games played: {game_count}")
+        print(f"Total games played: {self.game_count}")
         print(f"Player wins: {self.results['Player']}")
         print(f"Computer wins: {self.results['Computer']}")
+        self.store_data_table()
         
         plot_session_summary(self.results, game_count)
         
@@ -378,3 +396,4 @@ class ComputerPlayer(Player):
 if __name__ == "__main__":
     game = Main()
     game.session()
+    game.create_table()

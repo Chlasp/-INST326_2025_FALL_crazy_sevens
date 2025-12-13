@@ -54,4 +54,9 @@ python main_game.py
 - **Computer Plays**: Displays the card played by the computer.  
 - **Hand Swap Notification**: If two or more sevens are played, the hands of the two players are swapped.  
 
+## Annotated Bibliography
+ 1. **Python `time` Module Documentation**  
+   - Source: [https://docs.python.org/3/library/time.html](https://docs.python.org/3/library/time.html)  
+   - Used to implement the computer “thinking” delay (`time.sleep(1)`).  
+
 ---

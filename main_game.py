@@ -136,8 +136,8 @@ class Main():
             return selected[0]
     def store_data_table(self):
         """Creates a Data Frame and prints it
-        Primary Creator: Brian Gardner
-        Techniques used pd.concat
+        Primary Author: Brian Gardner
+        Techniques Claimed: concatenating operations on Pandas DataFrames
         Args:
 
         Side Effects:
@@ -150,7 +150,13 @@ class Main():
         new_df = pd.DataFrame([(self.results["Player"], self.results["Computer"], self.game_count)])
         self.table = pd.concat([self.table, new_df])
     def create_table(self):
-        """_summary_
+        """
+        Displays session results as a pandas DataFrame.
+        
+        Primary Author: Brian Gardner
+        
+        Side effects:
+            Prints the contents of table to console
         """
         print(self.table)
     
@@ -252,7 +258,7 @@ class Main():
                 Defaults to None.
 
             Args:
-                max_games (_type_, optional): _description_. Defaults to None.
+                max_games (optional): Defaults to None.
         """
         self.game_count = 0
         self.results = {"Player": 0, "Computer": 0}
@@ -284,6 +290,8 @@ def is_valid_play(card, current_highest):
     """
     This just returns True if card > current_highest.
     
+    Primary Author: David
+    
     Args:
         card(int): value of the card to play
         current_highest (int or None): value of the current highest card.
@@ -295,6 +303,9 @@ def is_valid_play(card, current_highest):
 def choose_playable_card(hand, current_highest_card):
     """
     Determines which card a player should play next.
+    
+    Primary Author: David
+    
     Parameters:
         hand (list of ints): the player's current cards
         current_highest_card (int or None): highest card played in this round
@@ -335,9 +346,9 @@ def swap_hands(hands, current_player, played_cards, chosen_player):
             hands[current_player]
         )
         print(f"Player {current_player} swapped hands with Player {chosen_player}!")  
-        return hands[current_player]       
-#Ending graph of sumary statistics
-
+        return hands[current_player]   
+        
+#Ending graph of summary statistics
 def plot_session_summary(results, total_games):
     """
     Primary Author: Miguel
@@ -364,14 +375,13 @@ def plot_session_summary(results, total_games):
     plt.title("Game Outcomes")
 
     plt.show()
-# Game Tracking Functions
-
-        
-        
-        
+           
 # Classes
 class Player():
     """Creates a class for the player
+    
+    Primary Author: Brian Gardner
+    
     Args:
         hand(list) : player's current hand of cards
         table(list) : player's current table of cards
@@ -386,6 +396,8 @@ class Player():
 class ComputerPlayer(Player):
     """ Create class for the Computer Player
     
+    Primary Author: Brian Gardner
+    
     Args:
         hand(list) : player's current hand of cards
         table(list) : player's current table of cards
@@ -398,6 +410,8 @@ class ComputerPlayer(Player):
         
     def turn(self, last_card, round):
         """Runs a computer player's turn 
+        
+        Primary Author: Brian Gardner
 
         Args:
             computer_player (Computer): Computer player object

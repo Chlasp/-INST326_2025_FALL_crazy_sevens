@@ -258,7 +258,7 @@ class Main():
         print(f"Computer wins: {self.results['Computer']}")
         self.store_data_table()
         
-        plot_session_summary(self.results, game_count)
+        plot_session_summary(self.results, self.game_count)
         
 # Game loop functions
 def is_valid_play(card, current_highest):

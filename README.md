@@ -59,4 +59,14 @@ python main_game.py
    - Source: [https://docs.python.org/3/library/time.html](https://docs.python.org/3/library/time.html)  
    - Used to implement the computer “thinking” delay (`time.sleep(1)`).  
 
+## Attribution
+
+| Method / Function | Primary Author | Techniques Demonstrated |
+|------------------|----------------|--------------------------|
+| `validate_multi_card_play` | Danica | set operations (set difference) |
+| `find_valid_multi_card_plays` | Danica | comprehensions; optional parameters |
+| `play_game` | David | f-strings containing expressions |
+| `__init__` | David | comprehensions / generator expressions |
+
+
 ---

@@ -37,7 +37,7 @@ class Main():
         for __ in range(8):
            self.player.hand.append(self.deck.pop())
            self.computer_player.hand.append(self.deck.pop())       
-        self.table = []
+        self.table = pd.DataFrame(columns = [])
            
    
         
@@ -115,19 +115,24 @@ class Main():
             print(f"You play: {selected}")
             return selected[0]
     def store_data_table(self):
-        """Creates a Data Frame
-
+        """Creates a Data Frame and prints it
+        Primary Creator: Brian Gardner
+        Techniques used pd.concat
         Args:
-            round (_type_): _description_
-            player (_type_): _description_
-            winner (_type_): _description_
+
+        Side Effects:
+            Updates global variable self.table
+        
+        
         """
         
         
-        self.table.append((self.results["Player"], self.results["Computer"], self.game_count))
+        new_df = pd.DataFrame([(self.results["Player"], self.results["Computer"], self.game_count)])
+        self.table = pd.concat([self.table, new_df])
     def create_table(self):
-        
-        print(f"Final Results: {pd.DataFrame(self.table, columns = ["Player Results", "Computer player", "Game Count"])}")
+        """_summary_
+        """
+        print(self.table)
     
     
     

@@ -14,6 +14,9 @@ from collections import Counter
 def validate_multi_card_play(selected_labels, current_top_label,
                              player_hand_labels, card_values):
     """
+    Primary Author: Danica
+    Technique claimed: set operations (set difference)
+    
     Determines whether a player can legally play multiple cards in a single turn.
 
     The function checks that the selected cards are valid, that the player
@@ -115,6 +118,10 @@ def mock_check_card_rules(card_label, current_top_label, card_values):
 def find_valid_multi_card_plays(player_hand_labels, current_top_label,
                                 card_values, min_count=2):
     """
+    
+    Primary Author: Danica
+    Technique claimed: optional parameters
+    
     Finds multi-card play options in a player's hand.
 
     Parameters

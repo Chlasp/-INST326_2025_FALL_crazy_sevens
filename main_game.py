@@ -44,7 +44,6 @@ class Main():
     def player_turn(self):
         """
         Primary Author: David
-        Technique Claimed: Input Validation
         
         Handles a single turn for Player.
         Displays Player's hand, determines playable cards,

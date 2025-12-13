@@ -1,6 +1,7 @@
 import random
 import time
 from multicard import validate_multi_card_play, find_valid_multi_card_plays
+import pandas as pd
 
 class Main():
     """
@@ -111,7 +112,10 @@ class Main():
             self.computer_player.hand = hands[1]
             
             print(f"You play: {selected}")
+            create_data_table( card, round)
             return selected[0]
+            
+            
         
         
                  
@@ -236,14 +240,25 @@ def swap_hands(hands, current_player, played_cards, chosen_player):
         )
         print(f"Player {current_player} swapped hands with Player {chosen_player}!")  
         return hands[current_player]       
+# Game Tracking Functions
+        
+        
         
 # Classes
 class Player():
     def __init__(self):
         self.hand = []
+        self.table = []
+        self.name = "user"
+    def store_data_table(self,card, round):
+        self.table.append((round, card, self.hand, self.name))
+        print(pd.DataFrame(self.table, columns = ["round", "card played", "current hand", "Name"]))
+    
+    
 class ComputerPlayer(Player):  
     def __init__(self, card_values):
         super().__init__()
+        self.name = "computer"
         self.card_values = card_values 
         
     def turn(self, last_card, round):

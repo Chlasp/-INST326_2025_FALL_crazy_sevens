@@ -137,6 +137,7 @@ class Main():
         """
         round = 1
         game_over = False
+        winner = None
         
         while not game_over:
             print(f"\n--- Round {round} ---")
@@ -150,35 +151,52 @@ class Main():
                 break
             
             if player_card is None:
+                winner = "Computer"
                 game_over = True
                 break
             
             self.last_card = player_card
             
+            if player_card == "K" and "K" in self.computer_player.hand:
+                print("Computer has a K! Playing it immediately...")
+                self.computer_player.hand.remove("K")
+                computer_card = "K"
+                print(f"Computer plays: {computer_card}")
+            else:
+                print("\nComputer's turn...")
+                print("\nComputer is thinking...", end="", flush=True)
+                print("\n")
+                time.sleep(1)
+                computer_card = self.computer_player.turn(self.last_card, round)
+                if computer_card is None:
+                    winner = "Player"
+                    print("Computer cannot play and loses!")
+                    break
+                print(f"Computer plays: {computer_card}")
+                self.last_card = computer_card
+                
+                if computer_card == "K" and "K" in self.player.hand:
+                    print("You have a K! You can play it immediately...")
+                    self.player.hand.remove("K")
+                    player_card = "K"
+                    print(f"You play: {player_card}")
+                    self.last_card = player_card
+                   
             if not self.player.hand:
+                winner = "Player"
                 print("Congratulations! You won!")
                 game_over = True 
                 break
-            
-            print("\nComputer's turn...")
-            print("\nComputer is thinking...", end="", flush=True)
-            print("\n")
-            time.sleep(1)
-            computer_card = self.computer_player.turn(self.last_card, round)
-            
-            if computer_card is None:
-                print("Computer cannot play and loses!")
-                break
-
-            print(f"Computer plays: {computer_card}")
-            self.last_card = computer_card
+    
             
             if not self.computer_player.hand:
+                winner = "Computer"
                 print("Computer wins!")
                 game_over = True
                 break
             
             round += 1
+        return winner
         
 # Game loop functions
 def is_valid_play(card, current_highest):
@@ -308,4 +326,6 @@ class ComputerPlayer(Player):
     
 if __name__ == "__main__":
     game = Main()
-    game.play_game()
+    winner = game.play_game()
+    if winner:
+        print(f"Winner: {winner}")

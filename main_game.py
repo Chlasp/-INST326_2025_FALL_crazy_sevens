@@ -50,6 +50,9 @@ class Main():
         while True:
             choice = input("Choose a card to play: ").strip().upper()
             
+            if choice == "QUIT":
+                return "QUIT"
+            
             selected = choice.split()
             
             card_check = [c for c in selected if not c in self.player.hand]
@@ -85,6 +88,12 @@ class Main():
     
             # Player turn
             player_card = self.player_turn()
+            
+            if player_card == "QUIT":
+                print("You quit the game.")
+                game_over = True
+                break
+            
             if player_card is None:
                 game_over = True
                 break

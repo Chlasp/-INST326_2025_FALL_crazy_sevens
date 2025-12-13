@@ -69,6 +69,9 @@ python main_game.py
 | `__init__` | David | super() |
 | `swap_hands` | Miguel | Sequence Unpacking |
 |`Session` | Miguel |optional parameters |
+|`store_data_table` | Brian |concatenating operations on Pandas DataFrames |
+|`store_data_table` | Brian |concatenating operations on Pandas DataFrames |
+|`create_table` | Brian | visualizing data with pyplot |
 
 
 ---

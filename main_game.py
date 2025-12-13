@@ -2,6 +2,7 @@ import random
 import time
 from multicard import validate_multi_card_play, find_valid_multi_card_plays
 import pandas as pd
+import matplotlib.pyplot as plt
 
 class Main():
     """
@@ -134,14 +135,6 @@ class Main():
         """
         print(self.table)
     
-    
-    
-            
-            
-            
-            
-        
-        
                  
 # Game loop
     def play_game(self):
@@ -223,6 +216,25 @@ class Main():
         return winner
     
     def session(self, max_games=None):
+        """
+        Runs a multi-game session, allowing the player to play multiple games in a row.
+
+        This method keeps track of wins for the player and the computer,
+        allows the user to play additional games until they choose to stop
+        or the optional `max_games` limit is reached, and prints a session summary.
+        After the session, it calls `store_data_table()` to save the results.
+
+        Primary Author: Miguel
+        Techniques Claimed: optional parameters
+
+        Args:
+            max_games (int, optional): Maximum number of games to play in this session.
+                If None, the session continues until the player chooses to stop.
+                Defaults to None.
+
+            Args:
+                max_games (_type_, optional): _description_. Defaults to None.
+        """
         self.game_count = 0
         self.results = {"Player": 0, "Computer": 0}
         
@@ -246,11 +258,11 @@ class Main():
         print(f"Computer wins: {self.results['Computer']}")
         self.store_data_table()
         
+        plot_session_summary(self.results, game_count)
+        
 # Game loop functions
 def is_valid_play(card, current_highest):
     """
-    Primary Author: David 
-    
     This just returns True if card > current_highest.
     
     Args:
@@ -263,8 +275,6 @@ def is_valid_play(card, current_highest):
 
 def choose_playable_card(hand, current_highest_card):
     """
-    Primary Author: David 
-    
     Determines which card a player should play next.
     Parameters:
         hand (list of ints): the player's current cards
@@ -282,6 +292,7 @@ def choose_playable_card(hand, current_highest_card):
 def swap_hands(hands, current_player, played_cards, chosen_player):
     """
     Primary Author: Miguel
+    Technique Claimed: Sequence Unpacking
     
     Swap hands if current player plays 2 or more 7's
     
@@ -306,7 +317,36 @@ def swap_hands(hands, current_player, played_cards, chosen_player):
         )
         print(f"Player {current_player} swapped hands with Player {chosen_player}!")  
         return hands[current_player]       
+#Ending graph of sumary statistics
+
+def plot_session_summary(results, total_games):
+    """
+    Primary Author: Miguel
+    
+    Plots a summary of the game session results using matplotlib.
+    
+    Args:
+        results (dict): Dictionary with keys "Player" and "Computer" for win counts
+        total_games (int): Total number of games played in the session
+    Side Effects:
+        Displays a bar chart summarizing the session results
+    """
+    labels = ["Total Games", "Player Wins", "Computer Wins", "Player Win Rate"]
+    values = [
+        total_games, 
+        results['Player'], 
+        results['Computer'], 
+        results['Player'] / total_games if total_games > 0 else 0
+    ]
+
+    plt.figure()
+    plt.bar(labels, values)
+    plt.ylabel("Count")
+    plt.title("Game Outcomes")
+
+    plt.show()
 # Game Tracking Functions
+
         
         
         

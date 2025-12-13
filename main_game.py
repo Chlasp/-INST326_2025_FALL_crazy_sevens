@@ -115,8 +115,12 @@ class Main():
             print(f"You play: {selected}")
             
             return selected[0]
-        def create_table(player, round, play):
-            self.player.game_log = []
+    def store_data_table(player):
+        win_percentage = round/player.wins
+        player.table.append((round, winner, win_percentage))
+    
+    
+    
             
             
             
@@ -273,10 +277,7 @@ class Player():
         self.hand = []
         self.table = []
         self.name = "user"
-        win_count = 0
-    def store_data_table(self,card, round):
-        self.table.append((winner))
-        print(pd.DataFrame(self.table, columns = ["round", "card played", "current hand", "Name"]))
+        self.wins = 0
     
     
 class ComputerPlayer(Player):  
